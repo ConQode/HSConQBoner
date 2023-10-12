@@ -15,6 +15,7 @@ sliders = []  # Initialize the sliders list
 x_slider_vars = []  # Initialize x_slider_vars list
 y_slider_vars = []  # Initialize y_slider_vars list
 z_slider_vars = []  # Initialize z_slider_vars list
+w_slider_vars = []  # Initialize w_slider_vars list
 slider_labels = []  # Initialize the slider_labels list
 min_slider_limit = 0.0
 max_slider_limit = 2.0
@@ -25,8 +26,9 @@ root.wm_attributes("-topmost", 1)  # Set the window to always be on top
 
 # Additional names for bones
 slider_name_mapping = {
-    " cf_J_hairBL_00": "BlaTest1",
     " cf_J_hairBL_00": "",
+    "cf_J_hairBL_00": "",
+    " cf_J_hairBR_00": "",
     "cf_J_hairBR_00": "",
     "cf_hairB": "",
     "cf_hairB_top": "",
@@ -44,68 +46,122 @@ slider_name_mapping = {
     "cf_J_Ana": "Anus",
     "cf_J_ArmElbo_low_s_L": "Elbow (L)",
     "cf_J_ArmElbo_low_s_R": "Elbow (R)",
-    "cf_J_ArmElboura_dam_L": "",
-    "cf_J_ArmElboura_dam_R": "",
+    "cm_J_ArmElbo_low_s_L": "Elbow (L)",
+    "cm_J_ArmElbo_low_s_R": "Elbow (R)",
+    "cf_J_ArmElboura_dam_L": "Inner Elbow (L)",
+    "cf_J_ArmElboura_dam_R": "Inner Elbow (R)",
     "cf_J_ArmLow01_L": "Forearm (L)",
     "cf_J_ArmLow01_R": "Forearm (R)",
     "cf_J_ArmLow01_s_L": "Upper Forearm Tone (L)",
     "cf_J_ArmLow01_s_R": "Upper Forearm Tone (R)",
+    "cm_J_ArmLow01_s_L": "Upper Forearm Tone (L)",
+    "cm_J_ArmLow01_s_R": "Upper Forearm Tone (R)",
     "cf_J_ArmLow02_s_L": "Lower Forearm Tone (L)",
     "cf_J_ArmLow02_s_R": "Lower Forearm Tone (L)",
+    "cm_J_ArmLow02_s_L": "Lower Forearm Tone (L)",
+    "cm_J_ArmLow02_s_R": "Lower Forearm Tone (L)",
     "cf_J_ArmUp00_L": "Overall Arm (L)",
     "cf_J_ArmUp00_R": "Overall Arm (R)",
     "cf_J_ArmUp01_s_L": "Upper Humerus (L)",
     "cf_J_ArmUp01_s_R": "Lower Humerus (R)",
+    "cm_J_ArmUp01_s_L": "Upper Humerus (L)",
+    "cm_J_ArmUp01_s_R": "Lower Humerus (R)",
     "cf_J_ArmUp02_s_L": "Upper Humerus (L)",
     "cf_J_ArmUp02_s_R": "Lower Humerus (R)",
+    "cm_J_ArmUp02_s_L": "Upper Humerus (L)",
+    "cm_J_ArmUp02_s_R": "Lower Humerus (R)",
     "cf_J_ArmUp03_s_L": "Upper Humerus (L)",
     "cf_J_ArmUp03_s_R": "Lower Humerus (R)",
+    "cm_J_ArmUp03_s_L": "Upper Humerus (L)",
+    "cm_J_ArmUp03_s_R": "Lower Humerus (R)",
+    "cm_J_Belly_dam0": "Belly",
+    "cm_J_Belly01_s": "Belly Center",
+    "cm_J_Belly02_s": "Belly Front",
+    "cm_J_Belly03_s": "Navel",
     "cf_J_CheekLow_L": "Lower Cheek (L)",
     "cf_J_CheekLow_R": "Lower Cheek (R)",
+    "cm_J_CheekLow_L": "Lower Cheek (L)",
+    "cm_J_CheekLow_R": "Lower Cheek (R)",
     "cf_J_CheekUp_L": "Upper Cheek (L)",
     "cf_J_CheekUp_R": "Upper Cheek (R)",
-    "cf_J_Chin_rs ": "Jaw",
-    "cf_J_ChinLow ": "",
+    "cm_J_CheekUp_L": "Upper Cheek (L)",
+    "cm_J_CheekUp_R": "Upper Cheek (R)",
+    "cf_J_Chin_rs": "Jaw",
+    "cm_J_Chin_rs": "Jaw",
+    "cf_J_ChinLow": "Jawline",
+    "cm_J_ChinLow": "Jawline",
     "cf_J_ChinTip_s": "Chin",
+    "cm_J_ChinTip_s": "Chin",
     "cf_J_EarBase_s_L": "Overall Ear (L)",
     "cf_J_EarBase_s_R": "Overall Ear (R)",
+    "cm_J_EarBase_s_L": "Overall Ear (L)",
+    "cm_J_EarBase_s_R": "Overall Ear (R)",
     "cf_J_EarLow_L": "Lower Ear (L)",
     "cf_J_EarLow_R": "Lower Ear (R)",
+    "cm_J_EarLow_L": "Lower Ear (L)",
+    "cm_J_EarLow_R": "Lower Ear (R)",
     "cf_J_EarRing_L": "Earring (L)",
     "cf_J_EarRing_R": "Earring (R)",
+    "cm_J_EarRing_L": "Earring (L)",
+    "cm_J_EarRing_R": "Earring (R)",
     "cf_J_EarUp_L": "Upper Ear (L)",
     "cf_J_EarUp_R": "Upper Ear (R)",
+    "cm_J_EarUp_L": "Upper Ear (L)",
+    "cm_J_EarUp_R": "Upper Ear (R)",
     "cf_J_Eye_r_L": "Eye (L)",
     "cf_J_Eye_r_R": "Eye (R)",
+    "cm_J_Eye_r_L": "Eye (L)",
+    "cm_J_Eye_r_R": "Eye (R)",
     "cf_J_eye_rs_L": "Eyeball (L)",
     "cf_J_eye_rs_R": "Eyeball (R)",
+    "cm_J_eye_rs_L": "Eyeball (L)",
+    "cm_J_eye_rs_R": "Eyeball (R)",
     "cf_J_Eye_s_L": "Overall Eye 1 (L)",
     "cf_J_Eye_s_R": "Overall Eye 1 (R)",
+    "cm_J_Eye_s_L": "Overall Eye 1 (L)",
+    "cm_J_Eye_s_R": "Overall Eye 1 (R)",
     "cf_J_Eye_t_L": "Overall Eye 2 (L)",
     "cf_J_Eye_t_R": "Overall Eye 2 (R)",
+    "cm_J_Eye_t_L": "Overall Eye 2 (L)",
+    "cm_J_Eye_t_R": "Overall Eye 2 (R)",
     "cf_J_Eye01_L": "Eyelid 1 (L)",
     "cf_J_Eye01_R": "Eyelid 1 (R)",
-    "cf_J_Eye01_s_L": "",
-    "cf_J_Eye01_s_R": "",
+    "cm_J_Eye01_L": "Eyelid 1 (L)",
+    "cm_J_Eye01_R": "Eyelid 1 (R)",
+    "cf_J_Eye01_s_L": "Inner Eye (L)",
+    "cf_J_Eye01_s_R": "Inner Eye (R)",
     "cf_J_Eye02_L": "Upper Eyelid (L)",
     "cf_J_Eye02_R": "Upper Eyelid (R)",
-    "cf_J_Eye02_s_L": "",
-    "cf_J_Eye02_s_R": "",
+    "cm_J_Eye02_L": "Upper Eyelid (L)",
+    "cm_J_Eye02_R": "Upper Eyelid (R)",
+    "cf_J_Eye02_s_L": "Upper Eye (L)",
+    "cf_J_Eye02_s_R": "Upper Eye (R)",
     "cf_J_Eye03_L": "Eyelid Outer Corner (L)",
     "cf_J_Eye03_R": "Eyelid Outer Corner (R)",
-    "cf_J_Eye03_s_L": "",
-    "cf_J_Eye03_s_R": "",
+    "cm_J_Eye03_L": "Eyelid Outer Corner (L)",
+    "cm_J_Eye03_R": "Eyelid Outer Corner (R)",
+    "cf_J_Eye03_s_L": "Outer Eye (L)",
+    "cf_J_Eye03_s_R": "Outer Eye (R)",
     "cf_J_Eye04_L": "Lower Eyelid (L)",
     "cf_J_Eye04_R": "Lower Eyelid (R)",
-    "cf_J_Eye04_s_L": "",
-    "cf_J_Eye04_s_R": "",
+    "cm_J_Eye04_L": "Lower Eyelid (L)",
+    "cm_J_Eye04_R": "Lower Eyelid (R)",
+    "cf_J_Eye04_s_L": "Lower Eye (L)",
+    "cf_J_Eye04_s_R": "Lower Eye (R)",
     "cf_J_EyePos_rz_L": "Eyeball (L)",
     "cf_J_EyePos_rz_R": "Eyeball (R)",
+    "cm_J_EyePos_rz_L": "Eyeball (L)",
+    "cm_J_EyePos_rz_R": "Eyeball (R)",
     "cf_J_FaceBase": "Overall Face",
+    "cm_J_FaceBase": "Overall Face",
     "cf_J_FaceLow_s": "Lower Face",
+    "cm_J_FaceLow_s": "Lower Face",
     "cf_J_FaceLowBase": "Lower Face Tone",
+    "cm_J_FaceLowBase": "Lower Face Tone",
     "cf_J_FaceUp_ty": "Upper Face",
+    "cm_J_FaceUp_ty": "Upper Face",
     "cf_J_FaceUp_tz": "Upper Face Tone",
+    "cm_J_FaceUp_tz": "Upper Face Tone",
     "cf_J_Foot01_L": "Foot & Ankle (L)",
     "cf_J_Foot01_R": "Foot & Ankle (R)",
     "cf_J_Foot02_L": "Foot (L)",
@@ -169,48 +225,64 @@ slider_name_mapping = {
     "cf_J_hairSR_01": "",
     "cf_J_hairSR_02": "",
     "cf_J_hairSR_s": "",
-    "cf_J_Hand_index01_L": "",
-    "cf_J_Hand_Index01_L": "",
-    "cf_J_Hand_index01_R": "",
-    "cf_J_Hand_Index01_R": "",
+    "cf_J_Hand_index01_L": "Index Finger (L)",
+    "cf_J_Hand_Index01_L": "Index Finger (L) (Don't use)",
+    "cf_J_Hand_index01_R": "Index Finger (R)",
+    "cf_J_Hand_Index01_R": "Index Finger (R) (Don't use)",
     "cf_J_Hand_L": "Hand & Wirst (L)",
-    "cf_J_Hand_Little01_L": "",
-    "cf_J_Hand_Little01_R": "",
-    "cf_J_Hand_Middle01_L": "",
-    "cf_J_Hand_Middle01_R": "",
+    "cf_J_Hand_Little01_L": "Little Finger (L)",
+    "cf_J_Hand_Little01_R": "Little Finger (R)",
+    "cf_J_Hand_Middle01_L": "Middle Finger (L)",
+    "cf_J_Hand_Middle01_R": "Middle Finger (R)",
     "cf_J_Hand_R": "Hand & Wirst (R)",
-    "cf_J_Hand_Ring01_L": "",
-    "cf_J_Hand_Ring01_R": "",
+    "cf_J_Hand_Ring01_L": "Ring Finger (L)",
+    "cf_J_Hand_Ring01_R": "Ring Finger (R)",
     "cf_J_Hand_s_L": "Hand (L)",
     "cf_J_Hand_s_R": "Hand (R)",
-    "cf_J_Hand_Thumb01_L": "",
-    "cf_J_Hand_Thumb01_R": "",
+    "cm_J_Hand_s_L": "Hand (L)",
+    "cm_J_Hand_s_R": "Hand (R)",
+    "cf_J_Hand_Thumb01_L": "Thumb (L)",
+    "cf_J_Hand_Thumb01_R": "Thumb (R)",
     "cf_J_Hand_Wrist_s_L": "Wirst (L)",
     "cf_J_Hand_Wrist_s_R": "Wirst (R)",
+    "cm_J_Hand_Wrist_s_L": "Wirst (L)",
+    "cm_J_Hand_Wrist_s_R": "Wirst (R)",
     "cf_J_Head": "Head Scale",
     "cf_J_Head_s": "Overall Head",
+    "cm_J_Head_s": "Overall Head",
     "cf_J_Hips": "Scale",
     "cf_J_Kokan": "Pussy",
     "cf_J_Kosi01": "Waist & Below",
+    "cm_J_Kosi01": "Waist & Below",
     "cf_J_Kosi01_s": "Pelvis (no skirt)",
+    "cm_J_Kosi01_s": "Pelvis (no skirt)",
     "cf_J_Kosi02": "Hips & Below",
     "cf_J_Kosi02_s": "Hips (no skirt)",
-    "cf_J_Kosi03": "",
-    "cf_J_Kosi03_s": "",
+    "cm_J_Kosi02_s": "Hips (no skirt)",
+    "cf_J_Kosi03": "Lower Hips",
+    "cf_J_Kosi03_s": "Lower Hips",
     "cf_J_LegKnee_back_s_L": "Back of Knee (L)",
     "cf_J_LegKnee_back_s_R": "Back of Knee (R)",
     "cf_J_LegKnee_dam_L": "Front of Knee (L)",
     "cf_J_LegKnee_dam_R": "Front of Knee (R)",
     "cf_J_LegKnee_low_s_L": "Knee Tone (L)",
     "cf_J_LegKnee_low_s_R": "Knee Tone (R)",
+    "cm_J_LegKnee_low_s_L": "Knee Tone (L)",
+    "cm_J_LegKnee_low_s_R": "Knee Tone (R)",
     "cf_J_LegLow01_L": "Knees & Below",
     "cf_J_LegLow01_R": "Knees & Below",
     "cf_J_LegLow01_s_L": "Calf (L)",
     "cf_J_LegLow01_s_R": "Calf (R)",
+    "cm_J_LegLow01_s_L": "Calf (L)",
+    "cm_J_LegLow01_s_R": "Calf (R)",
     "cf_J_LegLow02_s_L": "Lower Calf (L)",
     "cf_J_LegLow02_s_R": "Lower Calf (R)",
+    "cm_J_LegLow02_s_L": "Lower Calf (L)",
+    "cm_J_LegLow02_s_R": "Lower Calf (R)",
     "cf_J_LegLow03_s_L": "Ankle (L)",
     "cf_J_LegLow03_s_R": "Ankle (R)",
+    "cm_J_LegLow03_s_L": "Ankle (L)",
+    "cm_J_LegLow03_s_R": "Ankle (R)",
     "cf_J_LegLowRoll_L": "Lower Leg Length (L)",
     "cf_J_LegLowRoll_R": "Lower Leg Length (R)",
     "cf_J_LegUp00_L": "Overall Leg (L)",
@@ -227,43 +299,65 @@ slider_name_mapping = {
     "cf_J_LegUpDam_R": "Upper Hip (R)",
     "cf_J_LegUpDam_s_L": "Upper Hip (L)",
     "cf_J_LegUpDam_s_R": "Upper Hip (R)",
+    "cm_J_LegUpDam_s_L": "Upper Hip (L)",
+    "cm_J_LegUpDam_s_R": "Upper Hip (R)",
     "cf_J_LegUpRoll_L": "",
     "cf_J_LegUpRoll_R": "",
-    "cf_J_look_L": "",
-    "cf_J_look_R": "",
+    "cf_J_look_L": "Whole Eyeball (L)",
+    "cf_J_look_R": "Whole Eyeball (R)",
+    "cm_J_Mayu_C": "Eyebrow (C)",
     "cf_J_Mayu_L": "Eyebrow (L)",
     "cf_J_Mayu_R": "Eyebrow (R)",
+    "cm_J_Mayu_L": "Eyebrow (L)",
+    "cm_J_Mayu_R": "Eyebrow (R)",
     "cf_J_MayuMid_s_L": "Eyebrow Middle (L)",
     "cf_J_MayuMid_s_R": "Eyebrow Middle (R)",
+    "cm_J_MayuMid_s_L": "Eyebrow Middle (L)",
+    "cm_J_MayuMid_s_R": "Eyebrow Middle (R)",
     "cf_J_MayuTip_L": "",
+    "cf_J_MayuTip_R": "",
     "cf_J_MayuTip_s_L": "Eyebrow End (L)",
     "cf_J_MayuTip_s_R": "Eyebrow End (R)",
+    "cm_J_MayuTip_s_L": "Eyebrow End (L)",
+    "cm_J_MayuTip_s_R": "Eyebrow End (R)",
     "cf_J_megane": "Glasses",
+    "cm_J_megane": "Glasses",
     "cf_J_Mouth_L": "Mouth (L)",
     "cf_J_Mouth_R": "Mouth (R)",
+    "cm_J_Mouth_L": "Mouth (L)",
+    "cm_J_Mouth_R": "Mouth (R)",
     "cf_J_MouthBase_s": "Lips",
+    "cm_J_MouthBase_s": "Lips",
     "cf_J_MouthBase_tr": "Mouth (with teeth)",
+    "cm_J_MouthBase_tr": "Mouth (with teeth)",
     "cf_J_MouthCavity": "Teeth",
     "cf_J_MouthLow": "Lower Lip Tone",
+    "cm_J_MouthLow": "Lower Lip Tone",
     "cf_J_Mouthup": "Upper Lip Tone",
-    "cf_J_MouthUp": "",
-    "cf_J_Mune_Nip01_L": "",
-    "cf_J_Mune_Nip01_R": "",
+    "cm_J_Mouthup": "Upper Lip Tone",
+    "cf_J_MouthUp": "Upper Lip Peak",
+    "cm_J_MouthUp": "Upper Lip Peak",
+    "cf_J_Mune_Nip01_L": "Nipple (L)",
+    "cf_J_Mune_Nip01_R": "Nipple (R)",
     "cf_J_Mune_Nip01_s_L": "Nipple (L)",
     "cf_J_Mune_Nip01_s_R": "Nipple (R)",
     "cf_J_Mune_Nip02_s_L": "Nipple Tip (L)",
     "cf_J_Mune_Nip02_s_R": "Nipple Tip (R)",
-    "cf_J_Mune_Nipacs01_L": "",
-    "cf_J_Mune_Nipacs01_R": "",
-    "cf_J_Mune00": "",
+    "cf_J_Mune_Nipacs01_L": "Nipple Accessories (L)",
+    "cf_J_Mune_Nipacs01_R": "Nipple Accessories (R)",
+    "cf_J_Mune00": "Breasts Base",
     "cf_J_Mune00_d_L": "Middle part of Breast (L)",
     "cf_J_Mune00_d_R": "Middle part of Breast (R)",
     "cf_J_Mune00_s_L": "Breast Closest to Chest (L)",
-    "cf_J_Mune00_s_R": "Breast Closest to Chest (R) ",
+    "cf_J_Mune00_s_R": "Breast Closest to Chest (R)",
+    "cm_J_Mune00_s_L": "Breast Closest to Chest (L)",
+    "cm_J_Mune00_s_R": "Breast Closest to Chest (R)",
     "cf_J_Mune00_t_L": "Outer part of Breast (L)",
     "cf_J_Mune00_t_R": "Outer part of Breast (R)",
     "cf_J_Mune01_s_L": "Middle of Breast (L)",
     "cf_J_Mune01_s_R": "Middle of Breast (R)",
+    "cm_J_Mune01_s_L": "Middle of Breast (L)",
+    "cm_J_Mune01_s_R": "Middle of Breast (R)",
     "cf_J_Mune01_t_L": "Outer part of Breast (L)",
     "cf_J_Mune01_t_R": "Outer part of Breast (R)",
     "cf_J_Mune02_s_L": "Outer part of Breast (L)",
@@ -314,10 +408,10 @@ slider_name_mapping = {
     "cf_J_Spine01": "Waist & Above",
     "cf_J_Spine01_s": "Waist",
     "cf_J_Spine02": "Ribcage & Above",
-    "cf_J_Spine02_s": "",
+    "cf_J_Spine02_s": "Ribcage",
     "cf_J_Spine03": "Neck Delta & Above",
-    "cf_J_Spine03_s": "",
-    "cf_J_Tang_S_02_at": "",
+    "cf_J_Spine03_s": "Neck Delta",
+    "cf_J_Tang_S_02_at": "Tongue (Don't use)",
     "cf_J_Toes01_L": "Toes (L)",
     "cf_J_Toes01_R": "Toes (R)",
     "cf_N_height": "Height",
@@ -326,10 +420,8 @@ slider_name_mapping = {
     "cf_N_J_hairback_ph01": "",
     "cf_N_J_hairback_ph04": "",
     "cf_N_J_hairfront_91": "",
-    "cf_o_mayuge": "",
+    "cf_o_mayuge": "Eyebrows (Don't use)",
     "ChinLow": "",
-    "cm_J_Kosi01": "",
-    "f_J_hairF_top": "",
     "hairB_top": "",
     "N_hairback92": "",
     "N_hairfront83": "",
@@ -362,6 +454,8 @@ def update_slider_limits():
         slider[1].config(to=max_slider_limit)
         slider[2].config(from_=min_slider_limit)
         slider[2].config(to=max_slider_limit)
+        slider[3].config(from_=min_slider_limit)
+        slider[3].config(to=max_slider_limit)
 
 
 
@@ -391,7 +485,7 @@ def filter_sliders(event=None):
             for item in sliders[i]:
                 item.grid()
             label.grid()
-            for j in range(i * 3, i * 3 + 3):
+            for j in range(i * 4, i * 4 + 4):
                 entry_widgets[j].grid()  # Show the entry fields for manual inputs
             visible_sliders += 1
 
@@ -420,13 +514,14 @@ def open_image():
         load_values_from_txt(file_path)
            
 def clear_existing_sliders():
-    global sliders_data, x_slider_vars, y_slider_vars, z_slider_vars, slider_labels, entry_widgets
+    global sliders_data, x_slider_vars, y_slider_vars, z_slider_vars, w_slider_vars, slider_labels, entry_widgets
 
     # Clear any existing sliders and manual input entry widgets
     for slider in sliders:
         slider[0].destroy()
         slider[1].destroy()
         slider[2].destroy()
+        slider[3].destroy()
     for entry_widget in entry_widgets:
         entry_widget.destroy()
 
@@ -434,6 +529,7 @@ def clear_existing_sliders():
     x_slider_vars.clear()
     y_slider_vars.clear()
     z_slider_vars.clear()
+    w_slider_vars.clear()
     slider_labels.clear()
     entry_widgets.clear()
 
@@ -455,7 +551,7 @@ def load_image_preview(image_path):
 
 # Function to load values from the .txt file and update sliders
 def load_values_from_txt(image_path):
-    global sliders_data, x_slider_vars, y_slider_vars, z_slider_vars, slider_labels, initial_slider_values
+    global sliders_data, x_slider_vars, y_slider_vars, z_slider_vars, w_slider_vars, slider_labels, initial_slider_values
     global min_slider_limit, max_slider_limit
 
     txt_file = image_path + ".bonemod.txt"
@@ -480,6 +576,7 @@ def load_values_from_txt(image_path):
             x_value = float(data[3])
             y_value = float(data[4])
             z_value = float(data[5])
+            w_value = float(data[6])
 
             # Get the slider name from the loaded data
             slider_name = data[1]
@@ -489,7 +586,7 @@ def load_values_from_txt(image_path):
 
             # Set slider label text to the custom name appended to the original name (if custom_name is not empty)
             if custom_name:
-                slider_labels[i].config(text=f"{slider_name}\n({custom_name})")
+                slider_labels[i].config(text=f"{slider_name}\n{custom_name}")
             else:
                 slider_labels[i].config(text=slider_name)
 
@@ -497,9 +594,10 @@ def load_values_from_txt(image_path):
             x_slider_vars[i].set(x_value)
             y_slider_vars[i].set(y_value)
             z_slider_vars[i].set(z_value)
+            w_slider_vars[i].set(w_value)
 
             # Store initial slider values in the dictionary
-            initial_slider_values[i] = {"x": x_value, "y": y_value, "z": z_value}
+            initial_slider_values[i] = {"x": x_value, "y": y_value, "z": z_value, "w": w_value}
 
         # Update the slider limits after loading values
         update_slider_limits()
@@ -524,7 +622,7 @@ def update_slider_labels():
 
 # Function to create sliders dynamically based on the number of lines
 def create_sliders(num_sliders):
-    global sliders, x_slider_vars, y_slider_vars, z_slider_vars, slider_labels, entry_widgets
+    global sliders, x_slider_vars, y_slider_vars, z_slider_vars, w_slider_vars, slider_labels, entry_widgets
 
     # Create sliders based on the number of lines
     for i in range(num_sliders):
@@ -534,6 +632,7 @@ def create_sliders(num_sliders):
         x_slider_var = tk.DoubleVar()
         y_slider_var = tk.DoubleVar()
         z_slider_var = tk.DoubleVar()
+        w_slider_var = tk.DoubleVar()
 
         x_slider = tk.Scale(slider_container, from_=min_slider_limit, to=max_slider_limit, resolution=0.01, orient=tk.HORIZONTAL, variable=x_slider_var)
         x_slider.grid(row=i, column=1)
@@ -541,35 +640,43 @@ def create_sliders(num_sliders):
         y_slider.grid(row=i, column=2)
         z_slider = tk.Scale(slider_container, from_=min_slider_limit, to=max_slider_limit, resolution=0.01, orient=tk.HORIZONTAL, variable=z_slider_var)
         z_slider.grid(row=i, column=3)
+        w_slider = tk.Scale(slider_container, from_=min_slider_limit, to=max_slider_limit, resolution=0.01, orient=tk.HORIZONTAL, variable=w_slider_var)
+        w_slider.grid(row=i, column=4)
 
         entry_x = Entry(slider_container, textvariable=x_slider_var, width=6)
-        entry_x.grid(row=i, column=4)
+        entry_x.grid(row=i, column=5)
         entry_y = Entry(slider_container, textvariable=y_slider_var, width=6)
-        entry_y.grid(row=i, column=5)
+        entry_y.grid(row=i, column=6)
         entry_z = Entry(slider_container, textvariable=z_slider_var, width=6)
-        entry_z.grid(row=i, column=6)
+        entry_z.grid(row=i, column=7)
+        entry_w = Entry(slider_container, textvariable=w_slider_var, width=6)
+        entry_w.grid(row=i, column=8)
 
-        sliders.append((x_slider, y_slider, z_slider))
+        sliders.append((x_slider, y_slider, z_slider, w_slider))
         x_slider_vars.append(x_slider_var)
         y_slider_vars.append(y_slider_var)
         z_slider_vars.append(z_slider_var)
+        w_slider_vars.append(w_slider_var)
         slider_labels.append(label)
-        entry_widgets.extend([entry_x, entry_y, entry_z])
+        entry_widgets.extend([entry_x, entry_y, entry_z, entry_w])
 
         # Bind slider changes to the update function
         x_slider.bind("<ButtonRelease-1>", update_txt_file)
         y_slider.bind("<ButtonRelease-1>", update_txt_file)
         z_slider.bind("<ButtonRelease-1>", update_txt_file)
+        w_slider.bind("<ButtonRelease-1>", update_txt_file)
 
         # Bind Enter key to entry fields to save
         entry_x.bind("<Return>", update_txt_file)
         entry_y.bind("<Return>", update_txt_file)
         entry_z.bind("<Return>", update_txt_file)
+        entry_w.bind("<Return>", update_txt_file)
 
         # Bind FocusOut event to entry fields to save
         entry_x.bind("<FocusOut>", update_txt_file)
         entry_y.bind("<FocusOut>", update_txt_file)
         entry_z.bind("<FocusOut>", update_txt_file)
+        entry_w.bind("<FocusOut>", update_txt_file)
 
     # Update the scroll region of the sidebar canvas
     slider_container.update_idletasks()
@@ -585,9 +692,10 @@ def update_txt_file(event=None):
         x_value = x_slider_vars[i].get()
         y_value = y_slider_vars[i].get()
         z_value = z_slider_vars[i].get()
+        w_value = w_slider_vars[i].get()
 
         # Check if the slider values have changed
-        flag = "True" if x_value != 1.0 or y_value != 1.0 or z_value != 1.0 else "False"
+        flag = "True" if x_value != 1.0 or y_value != 1.0 or z_value != 1.0 or w_value != 1.0 else "False"
 
         sliders_data[i] = [
             sliders_data[i][0],
@@ -596,7 +704,7 @@ def update_txt_file(event=None):
             str(x_value),
             str(y_value),
             str(z_value),
-            str("1")
+            str(w_value)
         ]
 
     with open(txt_file, "w") as f:
@@ -643,7 +751,7 @@ sidebar_frame = tk.Frame(root)
 sidebar_frame.grid(row=2, column=4, rowspan=12, sticky="ns")
 
 # Create a canvas for the scrollable area in the sidebar
-sidebar_canvas = tk.Canvas(sidebar_frame, width=700, height=360)
+sidebar_canvas = tk.Canvas(sidebar_frame, width=800, height=400)
 sidebar_canvas.grid(row=0, column=0, sticky="nsew")  # Use grid for sidebar_canvas
 
 # Add a scrollbar to the sidebar and configure it
@@ -658,9 +766,9 @@ sidebar_canvas.create_window((0, 0), window=slider_container, anchor=tk.NW)
 # Initialize the slider_frame here
 slider_frame = slider_container
 
-# Create the "Save" button
-save_button = tk.Button(root, text="Save", command=update_txt_file)
-save_button.grid(row=14, column=0, columnspan=4, sticky="ew")  # Adjust the row
+## Create the "Save" button
+#save_button = tk.Button(root, text="Save", command=update_txt_file)
+#save_button.grid(row=14, column=0, columnspan=4, sticky="ew")  # Adjust the row
 
 # Create a label for the filter
 filter_label = tk.Label(filter_frame, text="Filter:")
