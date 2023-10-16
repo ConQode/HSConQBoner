@@ -1,5 +1,5 @@
 # HSConQBoner
-An useful tool to edit bonemod files for HoneySelect.
+An useful tool to edit bonemod.txt files for HoneySelect.
 
 The code can be compiled as one file with:
 ```
@@ -11,8 +11,8 @@ Also it can be compiles as one folder with:
 pyinstaller --onedir HSConQBoner.py
 ```
 
-Also the script can be run directly with
-
+Also the script can be run directly with:
+```
 python HSConQBoner.py
-
+```
 
